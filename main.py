@@ -20,7 +20,7 @@ for light in lights:
         name = light.find_element(By.CSS_SELECTOR, 'span[itemprop="name"]').text
         price = light.find_element(By.CSS_SELECTOR, "span.ui-LD-ZU").text
         link = light.find_element(By.CSS_SELECTOR, value='a.ui-GPFV8.qUioe.ProductName').get_attribute('href')
-    except Exception as e:
+    except Exception as e: # код для описания ошибки
         print(f"Mistake by parsing: {e}")
         continue
     parsed_data.append([name, price, link])
