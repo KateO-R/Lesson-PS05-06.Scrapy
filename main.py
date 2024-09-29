@@ -6,32 +6,32 @@ from selenium.webdriver.common.by import By
 
 driver = webdriver.Chrome()
 
-url = "https://tomsk.hh.ru/vacancies/programmist"
+url = "https://www.divan.ru/ekaterinburg/category/svet"
 
 driver.get(url)
-time.sleep(3)
+time.sleep(7)
 
-vacancies = driver.find_elements(By.CLASS_NAME, "vacancy-card--hhzAtjuXrYFMBMspDjrF")
+lights = driver.find_elements(By.CLASS_NAME, "div.WdR1o")
 
 parsed_data = []
 
-for vacancy in vacancies:
+for light in lights:
     try:
-        title = vacancy.find_element(By.CSS_SELECTOR, "span.vacancy-name-wrapper--tzZ1sS33pe6ELop6_Cte").text
-        company = vacancy.find_element(By.CSS_SELECTOR, "span.magritte-text___tkzIl_4-3-2").text
-        salary = vacancy.find_element(By.CSS_SELECTOR, "span.magritte-text_style-primary___AQ7MW_3-0-15").text
-        link = vacancy.find_element(By.CSS_SELECTOR, "a.bloko-header-section-2").get_attribute("href")
-    except:
-        print("Mistake by parsing")
+        name = light.find_element(By.CSS_SELECTOR, "span.div.lsooF").text
+        price = light.find_element(By.CSS_SELECTOR, "span.div.q5Uds").text
+        link = light.find_element(By.CSS_SELECTOR, "a").get_attribute("href")
+    except Exception as e:
+        print(f"Mistake by parsing: {e}")
         continue
-    parsed_data.append([title, company, salary, link])
+    parsed_data.append([name, price, link])
 
 driver.quit()
 
-with open("hh.csv", "w", newline="", encoding="utf-8") as file:
+with open("lights.csv", "w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file)
-    writer.writerow(['Название вакансии', 'название компании', 'зарплата', 'ссылка на вакансию'])
+    writer.writerow(['Название светильника', 'цена', 'ссылка на товар'])
     writer.writerows(parsed_data)
+
 
 
 
